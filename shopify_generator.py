@@ -546,8 +546,8 @@ def _derive_product_title(attr_json):
     return title or None
 
 
-def _update_skc_attr(raw, image_url):
-    """SKC属性里的 previewImgUrls 换成上传后的图片地址。
+def _update_skc_attr(raw, image_url, sku_code=""):
+    """SKC属性：previewImgUrls 换成上传后的图片地址，extCode 换成 SKU货号。
 
     原值形如 [{"parentSpecId":1001,"parentSpecName":"颜色","specId":21263,
     "specName":"混合色","extCode":"","productSkcId":"","previewImgUrls":"||||"}]
@@ -563,8 +563,8 @@ def _update_skc_attr(raw, image_url):
             if isinstance(item, dict):
                 if "previewImgUrls" in item:
                     item["previewImgUrls"] = image_url
-                if "extCode" in item and not item["extCode"]:
-                    item["extCode"] = "desktop"
+                if "extCode" in item:
+                    item["extCode"] = sku_code
     # 紧凑写法，与素材库/参考产物里的 JSON 字符串格式一致
     return json.dumps(data, ensure_ascii=False, separators=(",", ":"))
 
@@ -744,7 +744,7 @@ def show_directory(path, hash_num, template_path=None):
             _set(sheet, row, "class_id", ref.get("分类id", st["class_id"]))
             _set(sheet, row, "attr", ref.get("产品属性"))
             _set(sheet, row, "spu_attr", ref.get("SPU属性"))
-            _set(sheet, row, "skc_attr", _update_skc_attr(ref.get("SKC属性"), joined_urls))
+            _set(sheet, row, "skc_attr", _update_skc_attr(ref.get("SKC属性"), joined_urls, sku_prefix + "-" + size))
             _set(sheet, row, "sku_attr", _update_sku_attr(ref.get("SKU属性"), size))
             _set(sheet, row, "site_price", ref.get("站点价格"))
             _set(sheet, row, "source_url", _blank(ref.get("来源url")))

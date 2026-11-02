@@ -26,3 +26,8 @@ Thumbs.db
 
 # WorkBuddy
 .workbuddy/
+
+# 临时 / 备份 / 打包（防止误提交）
+~$*.xlsx
+备份/
+*.zip
