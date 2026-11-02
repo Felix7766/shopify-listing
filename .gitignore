@@ -1,0 +1,28 @@
+# 编译产物 / 二进制
+*.exe
+*.exe.bak
+*.bak
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 密钥 / 本地配置
+.env
+*.pem
+*.key
+config.dpapi
+
+# 编辑器 / 系统
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# WorkBuddy
+.workbuddy/
